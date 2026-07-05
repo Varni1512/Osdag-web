@@ -183,8 +183,8 @@ export const finPlateConfig = {
     {
       title: UI_STRINGS.FACTORED_LOADS,
       fields: [
-        { key: "load_shear", label: UI_STRINGS.SHEAR_FORCE, type: "number" },
-        { key: "load_axial", label: UI_STRINGS.AXIAL_FORCE + "*", type: "number", required: true }
+        { key: "load_shear", label: UI_STRINGS.SHEAR_FORCE + "*", type: "number", required: true },
+        { key: "load_axial", label: UI_STRINGS.AXIAL_FORCE, type: "number" }
       ]
     },
     {
