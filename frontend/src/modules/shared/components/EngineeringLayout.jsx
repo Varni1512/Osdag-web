@@ -6,6 +6,7 @@ import Logs from "./Logs";
 import { DESIGN_STATUS } from "../hooks/useDesignSubmission";
 import { UI_STRINGS } from "../../../constants/UIStrings";
 import { useEngineeringContext } from "../context/EngineeringContext";
+import OptimizationGraph from "./OptimizationGraph";
 
 export const EngineeringLayout = () => {
   const {
@@ -47,6 +48,12 @@ export const EngineeringLayout = () => {
     moduleConfig,
     docks,
     outputConfig,
+    hoverText,
+    hoverPos,
+    showOptimizationGraph,
+    setShowOptimizationGraph,
+    optimizationPlotData,
+    optimizationDone,
   } = useEngineeringContext();
 
   const {
@@ -357,6 +364,40 @@ export const EngineeringLayout = () => {
             ))}
           </div>
         </div>
+      )}
+
+      {showOptimizationGraph && (
+        <div
+          className="fixed inset-0 z-[1100] flex items-center justify-center bg-black/40 p-2 sm:p-6"
+          role="dialog"
+          aria-modal="true"
+        >
+          <div className="w-full h-full sm:w-[92vw] sm:h-[88vh] max-w-[1400px] bg-white rounded-lg shadow-2xl overflow-hidden border border-gray-300">
+            <OptimizationGraph
+              data={optimizationPlotData}
+              optimizationDone={optimizationDone}
+              onClose={() => setShowOptimizationGraph(false)}
+            />
+          </div>
+        </div>
+      )}
+
+      {hoverText && (
+        <div
+          style={{
+            position: "fixed",
+            left: hoverPos.x,
+            top: hoverPos.y,
+            background: "rgba(0, 0, 0, 0.75)",
+            color: "#fff",
+            padding: "4px 8px",
+            borderRadius: 6,
+            pointerEvents: "none",
+            fontSize: 12,
+            zIndex: 1000,
+          }}
+          dangerouslySetInnerHTML={{ __html: hoverText }}
+        />
       )}
     </div>
   );
